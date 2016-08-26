@@ -1,22 +1,17 @@
-# IRRemote
-This is IR remote library design for use with Particle (Spark) Core or Photon.
-For now library support: 
+# IRRemote for Particle Photon
+This is an [IRremote](https://github.com/z3t0/Arduino-IRremote)-compatible library designed for use with Particle (Spark) Core or Photon.
+The library supports sending only raw buffers.
 
-- Microlab speakers
-- Benq projector
+### Usage:
+```c++
+#include "IRremote.h"
 
-If you want to add new device just create another IRRemoteXXX class or send me Lirc config file.
+unsigned int rawCode[] = { 9000, 4500, 560, 1680 };
 
-Sample code:
------------
-
-```c
-#include "IRRemoteMicrolab.h"
-
-IRRemoteMicrolab speakersRemote(D1);
+IRsend irsend(D3);
 
 void loop() {
-	speakersRemote.SendCommand("VOLUP");
-	sleep(500);
+    int rawSize = sizeof(rawCode)/sizeof(unsigned int);
+    irsend.sendRaw(rawCode, rawSize, 38);
 }
 ```
